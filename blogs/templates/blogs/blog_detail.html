@@ -1,0 +1,26 @@
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Пост блока "{{ object.title }}"
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            {{ object.content }}
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                         Просмотры: {{ object.views_count }}<br>
+                        <span class="float-right">Опубликовано: {{ object.created_at }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

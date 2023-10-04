@@ -1,0 +1,27 @@
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+    <div class="col-12 mb-5">
+        <a class="btn btn-outline-primary" href="{% url 'blogs:create' %}">Добавить пост</a>
+    </div>
+    <div class="row">
+        {% for object in object_list %}
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body">
+                        <p class="card-text">
+                            {{ object|title|slice:":210" }}
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="{% url 'blogs:view' object.pk %}" type="button" class="btn btn-sm btn-outline-primary">Просмотреть</a>
+                                <a href="{% url 'blogs:edit' object.pk %}" type="button" class="btn btn-sm btn-outline-success">Редактировать</a>
+                                <a href="{% url 'blogs:delete' object.pk %}" type="button" class="btn btn-sm btn-outline-danger">Удалить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
