@@ -1,0 +1,37 @@
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Тема письма: {{ object.subject }}<br><br>Текст письма: {{ object.body }}
+                    </h3>
+                </div>
+
+                <div class="card-body">
+                    <h6>Статистика рассылки:</h6>
+                    <ul>
+                        {% for log in object.mailinglog_set.all %}
+                        <br>- дата и время последней попытки: {{ log.last_attempt_datetime }}<br>- статус рассылки:
+                        {% if log.message.mailing.status == 'completed' %}
+                        завершена
+                        {% elif log.message.mailing.status == 'created' %}
+                        создана
+                        {% elif log.message.mailing.status == 'started' %}
+                        запущена
+                        {% else %}
+                        неизвестный статус
+                        {% endif %}
+                        {% empty %}
+                        <li>нет доступной статистики</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

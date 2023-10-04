@@ -1,0 +1,87 @@
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+<style>
+    .btn-text {
+        white-space: normal; /* Разрешить перенос текста на новую строку */
+        overflow: hidden; /* Скрытие текста, выходящего за пределы кнопки */
+        text-overflow: ellipsis; /* Добавление троеточия в конце текста, который не помещается */
+        max-width: 500px; /* Максимальная ширина кнопки */
+        word-wrap: break-word; /* Разрешить перенос слов в тексте */
+    }
+</style>
+
+
+<div class="col-12 mb-5">
+    {% if perms.mailings.add_client %}
+    <a class="btn btn-outline-primary btn-md" href="{% url 'clients:clients_create' %}">Добавить нового клиента</a>
+    {% endif %}
+    {% if perms.mailings.add_mailinglist %}
+    <a class="btn btn-outline-primary btn-md" href="{% url 'mailings:mailings_create' %}"
+       style="margin-left: 800px;">Создать новую рассылку</a>
+    {% endif %}
+</div>
+<div class="row">
+    <div class="col">
+        <div class="card mb-3 box-shadow">
+            <div class="card-body">
+                <p class="card-text">
+                    <a class="btn btn-primary btn-md" data-bs-toggle="collapse" href="#multiCollapseExample1"
+                       role="button"
+                       aria-expanded="false" aria-controls="multiCollapseExample1" style="margin-left: 90px;">Количество
+                        рассылок<br>всего:</a>
+                    <button class="btn btn-primary btn-md btn-text" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#multiCollapseExample2"
+                            aria-expanded="false" aria-controls="multiCollapseExample2" style="margin-left: 100px;">
+                        Количество активных<br>рассылок:
+                    </button>
+                    <button class="btn btn-primary btn-md btn-text" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#multiCollapseExample3"
+                            aria-expanded="false" aria-controls="multiCollapseExample3" style="margin-left: 100px;">
+                        Количество уникальных<br>клиентов
+                        для рассылок:
+                    </button>
+                    <button class="btn btn-primary btn-md btn-text" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#multiCollapseExample4"
+                            aria-expanded="false" aria-controls="multiCollapseExample4" style="margin-left: 100px;">
+                        Случайные три статьи<br>из блога:
+                    </button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-4 mb-5">
+        <div class="collapse multi-collapse" id="multiCollapseExample1">
+            <div class="card card-body">
+                На данный момент у вас всего {{ count_mailing }} рассылок.
+            </div>
+        </div>
+    </div>
+    <div class="col-4 mb-5">
+        <div class="collapse multi-collapse" id="multiCollapseExample2">
+            <div class="card card-body">
+                На данный момент у вас {{ active_mailing_count }} активных рассылок.
+            </div>
+        </div>
+    </div>
+    <div class="col-4 mb-5">
+        <div class="collapse multi-collapse" id="multiCollapseExample3">
+            <div class="card card-body">
+                На данный момент у вас {{ unic_client_count }} уникальных клиента.
+            </div>
+        </div>
+    </div>
+    <div class="col-4 mb-5">
+        <div class="collapse multi-collapse" id="multiCollapseExample4">
+            <div class="card card-body">
+                {% for post in random_blog_posts %}
+                    <li>{{ post }}</li>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
